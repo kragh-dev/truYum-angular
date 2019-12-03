@@ -1,0 +1,60 @@
+<div class="container-fluid px-5 py-5">
+  <h3>Edit Menu Item</h3>
+  <form [formGroup]="itemEditForm" (ngSubmit)="updateFoodItem()">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+        
+        <div class="form-group">
+          <label for="itemName">Name:</label>
+          <input formControlName="name" name="name" type="text" class="form-control" id="itemName" required>
+        </div>
+        <!-- <div class="text text-danger" *ngIf="name.errors.required">
+          Name is required.
+        </div> -->
+      </div>
+      <div class="col-lg-3 col-md-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="itemPrice">Price:</label>
+          <input formControlName="price" name="price" type="text" class="form-control" id="itemPrice" required>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="itemDOL">Date of Launch:</label>
+          <input formControlName="dateOfLaunch" name="DOL" type="date" class="form-control" id="itemDOL" >
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="itemCategory">Category:</label>
+          <select formControlName="category" name="categories" id="itemCategory" class="form-control">
+            <option selected> Select a Category</option>
+            <option value="Starters">Starters</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Dessert">Dessert</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="itemActive">Active:</label>
+          <div>
+            <input type="radio" id="yes" class="active-status" formControlName="active" [value]="true" name="active">Yes
+            <input type="radio" id="no" class="active-status" formControlName="active" [value]="false" name="active">No
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+        <div class="form-group">
+          <input type="checkbox" class="free-del-status" id="itemFreeDelivery" formControlName="freeDelivery">
+          <label for="itemName">Free Delivery</label>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+        <div class="form-group">
+          <button type="submit" class="btn add-to-cart">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
