@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IFoodItem } from '../item-info/food-item-interface';
 import { FoodService } from '../food.service';
 import { FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-food-item-edit',
@@ -12,8 +13,9 @@ import { FormBuilder } from '@angular/forms';
 export class FoodItemEditComponent implements OnInit {
   foodItem: IFoodItem
   itemId: number
+  dateOfLaunch: Date
   itemEditForm
-  constructor(private formBuilder:FormBuilder,private activatedRoute:ActivatedRoute, private foodService:FoodService) { }
+  constructor(private formBuilder:FormBuilder,private activatedRoute:ActivatedRoute, private foodService:FoodService, private router:Router,public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.itemId = this.activatedRoute.snapshot.params['id'] as number
@@ -22,17 +24,19 @@ export class FoodItemEditComponent implements OnInit {
     this.itemEditForm = this.formBuilder.group({
       name:[this.foodItem.name],
       price:[this.foodItem.price],
-      dateOfLaunch:[this.foodItem.dateOfLaunch.toISOString().substring(0,10)],
+      dateOfLaunch:[this.datepipe.transform(this.foodItem.dateOfLaunch,'yyyy-MM-dd')],
       category:[this.foodItem.category],
       active:[this.foodItem.active],
       freeDelivery:[this.foodItem.freeDelivery],
     })
+    console.log(this.itemEditForm)
   }
 
   
 
   updateFoodItem()
   {
+    this.foodItem.id = this.foodItem.id
     this.foodItem.name = this.itemEditForm.value['name']
     this.foodItem.price = this.itemEditForm.value['price']
     this.foodItem.dateOfLaunch = this.itemEditForm.value['dateOfLaunch']
@@ -41,6 +45,10 @@ export class FoodItemEditComponent implements OnInit {
     this.foodItem.freeDelivery = this.itemEditForm.value['freeDelivery']
     console.log(this.foodItem)
     this.foodService.updateFoodItem(this.foodItem)
+    if(confirm('Item Details saved successfully. Click OK to return to Menu List'))
+    {
+      this.router.navigateByUrl('/menu')
+    }
   }
 
   get active(){

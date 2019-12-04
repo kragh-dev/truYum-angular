@@ -18,6 +18,7 @@ import { UserProfileComponent } from './profile/user-profile/user-profile.compon
 import { HomeComponent } from './site/home/home.component';
 import { PageNotFoundComponent } from './site/page-not-found/page-not-found.component';
 import { FooterComponent } from './site/footer/footer.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { FooterComponent } from './site/footer/footer.component';
       {path:'**',component:PageNotFoundComponent}
     ]),
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
